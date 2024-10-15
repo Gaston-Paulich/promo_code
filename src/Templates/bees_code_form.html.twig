@@ -1,0 +1,20 @@
+<form action="{{ path('bees_code.validate_code') }}" method="post" id="bees-code-form" onsubmit="return validateCode(event)">
+  <label for="bees_code">Ingrese su código de hasta 14 dígitos:</label>
+  <input type="text" id="bees_code" name="bees_code" maxlength="14" required>
+  <button type="submit">Validar Código</button>
+</form>
+
+<script>
+  async function validateCode(event) {
+    event.preventDefault();
+    const form = document.getElementById('bees-code-form');
+    const formData = new FormData(form);
+    const response = await fetch(form.action, {
+      method: 'POST',
+      body: formData,
+    });
+
+    const result = await response.json();
+    alert(result.message);
+  }
+</script>
